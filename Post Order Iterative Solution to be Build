@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class PostOrderIterativeTraversal {
+    
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode prev = null;
+
+        while (root != null || !stack.isEmpty()) {
+            
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+
+            TreeNode current = stack.peek();
+
+          
+            if (current.right == null || current.right == prev) {
+                result.add(current.val);
+                stack.pop();
+                prev = current;
+            } else {
+               
+                root = current.right;
+            }
+        }
+
+        return result;
+    }
+    
+    public static void main(String[] args) {
+       
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        PostOrderIterativeTraversal postOrderTraversal = new PostOrderIterativeTraversal();
+        List<Integer> result = postOrderTraversal.postorderTraversal(root);
+        System.out.println(result);
+    }
+}
+ // Output: [4, 5, 2, 3, 1]
