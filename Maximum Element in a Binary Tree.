@@ -1,0 +1,24 @@
+// recursive approach 
+public class MaxElementInBinaryTree {
+
+    public static int findMaxRecursive(TreeNode root) {
+        if (root == null) {
+           return Integer.MIN_VALUE;
+        }
+         int leftMax = findMaxRecursive(root.left);
+         int rightMax = findMaxRecursive(root.right);
+         return Math.max(root.val, Math.max(leftMax, rightMax));
+    }
+    public static void main(String[] args) {
+       TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        int maxElement = findMaxRecursive(root);
+        System.out.println("Maximum element in the binary tree: " + maxElement); 
+    }
+}
